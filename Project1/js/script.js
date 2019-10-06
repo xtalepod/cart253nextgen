@@ -28,9 +28,15 @@ let playerVY = 0;
 let playerSprintSpeed = 2;
 let playerNormalSpeed = 1;
 let playerSpeed;
-// Player health
+//adding player health variables for normal and sprint mode, removing player max health
+
 let playerHealth;
+//this variable for whether being shifted or not
+let playerHealthPenalty;
+let playerHealthNormalPenalty = 0.05;
+let playerHealthSprintPenalty = 0.5;
 let playerMaxHealth = 255;
+
 // Player fill color
 let playerFill = 50;
 
@@ -124,10 +130,12 @@ function handleInput() {
   //check for player sprint speed
   if (keyIsDown(SHIFT)) {
     playerSpeed = playerSprintSpeed;
+    playerHealthPenalty = playerHealthSprintPenalty;
   }
   //to make it reset when shift is no longer pressed
   else {
     playerSpeed = playerNormalSpeed;
+    playerHealthPenalty = playerHealthNormalPenalty;
   }
   // Check for horizontal movement
   if (keyIsDown(LEFT_ARROW)) {
@@ -180,8 +188,12 @@ function movePlayer() {
 // Reduce the player's health (happens every frame)
 // Check if the player is dead
 function updateHealth() {
-  // Reduce player health
-  playerHealth = playerHealth - 0.5;
+
+  // Reduce player health remove the things to make it look fancy ;p
+  //player health pentalty will be equal to either playerHealthNormalPenalty or
+  //playerHealthSprintPenalty which are set in handleInput
+
+  playerHealth -= playerHealthPenalty;
   // Constrain the result to a sensible range
   playerHealth = constrain(playerHealth, 0, playerMaxHealth);
   // Check if the player is dead (0 health)
