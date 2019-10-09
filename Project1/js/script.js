@@ -17,6 +17,8 @@ random movement, screen wrap.
 
 // Track whether the game is over
 let gameOver = false;
+//Track whether the game has started
+let gameStart = false;
 
 // Player position, size, velocity
 let playerX;
@@ -64,10 +66,23 @@ let preyEaten = 0;
 //
 // Sets up the basic elements of the game
 function setup() {
+console.log("Help! I'm not doing anything");
   createCanvas(500, 500);
 
-  noStroke();
 
+//main menu start up
+ textAlign(CENTER, CENTER);
+ textStyle(BOLD);
+ fill(0);
+ textSize(40);
+ text("LIFE IS LIKE", width / 2, height / 2 - 80); // Title
+ fill(20);
+ textSize(32);
+ textStyle(BOLD);
+ text("PLAY", width / 2, height / 2); // easy button
+ textSize(20);
+ textStyle(ITALIC);
+ text("a box of chocolates you always know what you're going to get",width / 2, height / 2 + 80);
   // We're using simple functions to separate code out
   setupPrey();
   setupPlayer();
@@ -104,9 +119,11 @@ function setupPlayer() {
 // displays the two agents.
 // When the game is over, shows the game over screen.
 function draw() {
+  console.log("Help! I'm stuck inside a program!");
   background(100, 100, 200);
-
-  if (!gameOver) {
+  checkStartPageButtons();
+//the game is started
+  if (gameStart = true) {
     handleInput();
 
     movePlayer();
@@ -119,6 +136,32 @@ function draw() {
     drawPlayer();
   } else {
     showGameOver();
+  }
+}
+
+
+//start startPage
+/// Checking play button
+function checkStartPageButtons() {
+  // if the mouse is hovering
+  if (dist(mouseX, mouseY, width / 2, height / 2) < 25 && !gameStart) {
+    textAlign(CENTER, CENTER);
+    fill(255);
+    textSize(32);
+    text("PLAY", width / 2, height / 2); // play button
+    // If the mouse is pressed, the game will start
+    if (mouseIsPressed) {
+      !gameStart;
+      handleInput();
+    }
+    // when the mouse is not hovering any buttons, the buttons go back to normal
+  } else {
+    if (!gameStart) {
+      textStyle(BOLD);
+      fill(0);
+      textSize(32);
+      text("PLAY", width / 2, height / 2); // play button
+    }
   }
 }
 
