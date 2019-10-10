@@ -5,15 +5,17 @@
 
 let state = "START";
 let startButton;
-let backgroundImage;
+
+//background images for START, PLAY, GAMEOVER states
+let backgroundImage; //should change name to backgroundStartImage
+let backgroundPlayImage;
+let backgroundGameoverImage; //still need to add
 
 
 // Track whether the game is over
 let gameOver = false;
-//Track whether the game has started
-let gameStart = false;
 
-//player image
+//details regarding the player
 let playerImage;
 // Player position, size, velocity
 let playerX;
@@ -34,9 +36,7 @@ let playerHealthNormalPenalty = 0.05;
 let playerHealthSprintPenalty = 0.5;
 let playerMaxHealth = 255;
 
-// Player fill color
-let playerFill = 50;
-
+//details regarding the prey
 let preyImage;
 // Prey position, size, velocity
 let preyX;
@@ -64,7 +64,8 @@ function preload() {
 
   backgroundImage =loadImage("assets/images/chocolate.jpg");
   playerImage = loadImage("assets/images/cone.png");
-  preyImage = loadImage("assets/images/heart.png")
+  preyImage = loadImage("assets/images/heart.png");
+  backgroundPlayImage =loadImage("assets/images/cloud.png");
 }
 // setup()
 //
@@ -107,7 +108,8 @@ function setupPlayer() {
 // When the game is over, shows the game over screen.
 function draw() {
   console.log("Help! I'm stuck inside a program!");
-  background(100, 100, 200);
+  image(backgroundPlayImage,0,0);
+  backgroundPlayImage.resize (600,600);
 
 //the game is started
   if (state === "START") {
@@ -136,7 +138,10 @@ function mousePressed() {
 
 //click anywhere to start game
   if (state === "START") {
-   state = "PLAY"
+    if (mouseX > 230 && mouseX < 380 && mouseY > 500 && mouseY < 550) {
+    rect(305,550,150,50);
+     state = "PLAY"
+     }
     }
 }
 
@@ -217,7 +222,7 @@ function updateHealth() {
   // Check if the player is dead (0 health)
   if (playerHealth === 0) {
     // If so, the game is over
-    gameOver = true;
+    state = "GAMEOVER"
   }
 }
 
@@ -286,8 +291,7 @@ function movePrey() {
 //
 // Draw the prey as an ellipse with alpha based on health
 function drawPrey() {
-  fill(preyFill, preyHealth);
-image(preyImage, preyX, preyY, preyRadius * 2);
+image(preyImage, preyX, preyY, preyHealth);
 preyImage.resize(40,40);
 }
 
@@ -295,30 +299,18 @@ preyImage.resize(40,40);
 //
 // Draw the player as an ellipse with alpha value based on health
 function drawPlayer() {
-  fill(playerFill, playerHealth);
-  image(playerImage, playerX, playerY, playerRadius * 2);
+    push();
+  image(playerImage, playerX, playerY, playerHealth);
   playerImage.resize(40,40);
-}
-
-// showGameOver()
-//
-// Display text about the game being over!
-function showGameOver() {
-  // Set up the font
-  textSize(32);
-  textAlign(CENTER, CENTER);
-  fill(0);
-  // Set up the text to display
-  let gameOverText = "GAME OVER\n"; // \n means "new line"
-  gameOverText = gameOverText + "You ate " + preyEaten + " prey\n";
-  gameOverText = gameOverText + "before you died."
-  // Display it in the centre of the screen
-  text(gameOverText, width / 2, height / 2);
+  tint(255,105,180,playerHealth);
+    image(playerImage, playerX, playerY, playerHealth);
+  pop();
 }
 
 //start state
 function displayStartScreen(){
 image(backgroundImage,0,0,width,height);
+
  textAlign(CENTER, CENTER);
  textStyle(BOLD);
  fill(255,105,180);
@@ -328,7 +320,28 @@ image(backgroundImage,0,0,width,height);
  textSize(10);
  textStyle(BOLD);
  text("a box of chocolates you always know what you're going to get", 305, 60); // easy button
- textSize(10);
+ textSize(20);
  textStyle(ITALIC,BOLD);
- text("NEVER KNOW",305,525);
+ rectMode(CENTER,CENTER);
+ fill(255);
+ rect(305,550,150,50);
+fill(0);
+ text("NEVER KNOW",305,550);
+
+}
+
+// display GAMEOVER state
+//
+// Display text about the game being over!
+function showGameOver() {
+  // Set up the font
+  textSize(20);
+  textAlign(CENTER, CENTER);
+  fill(0);
+  // Set up the text to display
+  let gameOverText = "YOU CANNOT HAVE YOUR\n CAKE AND EAT IT TOO\n"; // \n means "new line"
+  gameOverText = gameOverText + "You ate " + preyEaten + "slices\n";
+  gameOverText = gameOverText + "before you died."
+  // Display it in the centre of the screen
+  text(gameOverText, width / 2, height / 2);
 }
