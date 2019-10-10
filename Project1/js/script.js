@@ -14,6 +14,9 @@ Includes: Physics-based movement, keyboard controls, health/stamina,
 random movement, screen wrap.
 
 ******************************************************/
+//states START PLAY GAMEOVER
+
+let state;
 
 // Track whether the game is over
 let gameOver = false;
@@ -121,9 +124,12 @@ function setupPlayer() {
 function draw() {
   console.log("Help! I'm stuck inside a program!");
   background(100, 100, 200);
-  checkStartPageButtons();
+
 //the game is started
-  if (gameStart = true) {
+  if (state = "START") {
+displayStartScreen();
+}
+    else if (state === "PLAY"){
     handleInput();
 
     movePlayer();
@@ -134,7 +140,8 @@ function draw() {
 
     drawPrey();
     drawPlayer();
-  } else {
+  }
+  else if (state === "GAMEOVER"){
     showGameOver();
   }
 }
@@ -142,7 +149,7 @@ function draw() {
 
 //start startPage
 /// Checking play button
-function checkStartPageButtons() {
+function mouseIsPressed() {
   // if the mouse is hovering
   if (dist(mouseX, mouseY, width / 2, height / 2) < 25 && !gameStart) {
     textAlign(CENTER, CENTER);
@@ -337,4 +344,21 @@ function showGameOver() {
   gameOverText = gameOverText + "before you died."
   // Display it in the centre of the screen
   text(gameOverText, width / 2, height / 2);
+}
+
+//start state
+function displayStartScreen(){
+
+ textAlign(CENTER, CENTER);
+ textStyle(BOLD);
+ fill(0);
+ textSize(40);
+ text("LIFE IS LIKE", width / 2, height / 2 - 80); // Title
+ fill(20);
+ textSize(10);
+ textStyle(BOLD);
+ text("a box of chocolates you always know what you're going to get", width / 2, height / 2); // easy button
+ textSize(10);
+ textStyle(ITALIC);
+ text("//",width / 2, height / 2 + 80);
 }
