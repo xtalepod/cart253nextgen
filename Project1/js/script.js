@@ -1,22 +1,11 @@
 "use strict";
 
-/******************************************************
-
-Game - Chaser
-Pippin Barr X X
-
-A "simple" game of cat and mouse. The player is a circle and can move with keys,
-if they overlap the (randomly moving) prey they "eat it" by sucking out its life
-and adding it to their own. The player "dies" slowly over time so they have to keep
-eating to stay alive.
-
-Includes: Physics-based movement, keyboard controls, health/stamina,
-random movement, screen wrap.
-
-******************************************************/
+//******************************************************
 //states START PLAY GAMEOVER
 
-let state;
+let state = "START";
+let startButton;
+
 
 // Track whether the game is over
 let gameOver = false;
@@ -71,21 +60,6 @@ let preyEaten = 0;
 function setup() {
 console.log("Help! I'm not doing anything");
   createCanvas(500, 500);
-
-
-//main menu start up
- textAlign(CENTER, CENTER);
- textStyle(BOLD);
- fill(0);
- textSize(40);
- text("LIFE IS LIKE", width / 2, height / 2 - 80); // Title
- fill(20);
- textSize(32);
- textStyle(BOLD);
- text("PLAY", width / 2, height / 2); // easy button
- textSize(20);
- textStyle(ITALIC);
- text("a box of chocolates you always know what you're going to get",width / 2, height / 2 + 80);
   // We're using simple functions to separate code out
   setupPrey();
   setupPlayer();
@@ -102,9 +76,7 @@ function setupPrey() {
   preyHealth = preyMaxHealth;
   tx = random(0, 1000);
   ty = random(0, 1000);
-
 }
-
 // setupPlayer()
 //
 // Initialises player position and health
@@ -126,7 +98,7 @@ function draw() {
   background(100, 100, 200);
 
 //the game is started
-  if (state = "START") {
+  if (state === "START") {
 displayStartScreen();
 }
     else if (state === "PLAY"){
@@ -146,30 +118,14 @@ displayStartScreen();
   }
 }
 
-
-//start startPage
+//setting up the buttons to go from start state to play state
 /// Checking play button
-function mouseIsPressed() {
-  // if the mouse is hovering
-  if (dist(mouseX, mouseY, width / 2, height / 2) < 25 && !gameStart) {
-    textAlign(CENTER, CENTER);
-    fill(255);
-    textSize(32);
-    text("PLAY", width / 2, height / 2); // play button
-    // If the mouse is pressed, the game will start
-    if (mouseIsPressed) {
-      !gameStart;
-      handleInput();
+function mousePressed() {
+
+//click anywhere to start game
+  if (state === "START") {
+   state = "PLAY"
     }
-    // when the mouse is not hovering any buttons, the buttons go back to normal
-  } else {
-    if (!gameStart) {
-      textStyle(BOLD);
-      fill(0);
-      textSize(32);
-      text("PLAY", width / 2, height / 2); // play button
-    }
-  }
 }
 
 // handleInput()
@@ -360,5 +316,5 @@ function displayStartScreen(){
  text("a box of chocolates you always know what you're going to get", width / 2, height / 2); // easy button
  textSize(10);
  textStyle(ITALIC);
- text("//",width / 2, height / 2 + 80);
+ text("NEVER KNOW",width / 2, height / 2 + 80);
 }
