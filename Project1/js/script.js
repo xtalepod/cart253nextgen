@@ -5,6 +5,7 @@
 
 let state = "START";
 let startButton;
+let backgroundImage;
 
 
 // Track whether the game is over
@@ -12,6 +13,8 @@ let gameOver = false;
 //Track whether the game has started
 let gameStart = false;
 
+//player image
+let playerImage;
 // Player position, size, velocity
 let playerX;
 let playerY;
@@ -34,6 +37,7 @@ let playerMaxHealth = 255;
 // Player fill color
 let playerFill = 50;
 
+let preyImage;
 // Prey position, size, velocity
 let preyX;
 let preyY;
@@ -54,12 +58,20 @@ let eatHealth = 10;
 // Number of prey eaten during the game (the "score")
 let preyEaten = 0;
 
+
+//preload
+function preload() {
+
+  backgroundImage =loadImage("assets/images/chocolate.jpg");
+  playerImage = loadImage("assets/images/cone.png");
+  preyImage = loadImage("assets/images/heart.png")
+}
 // setup()
 //
 // Sets up the basic elements of the game
 function setup() {
 console.log("Help! I'm not doing anything");
-  createCanvas(500, 500);
+  createCanvas(600, 600);
   // We're using simple functions to separate code out
   setupPrey();
   setupPlayer();
@@ -275,7 +287,8 @@ function movePrey() {
 // Draw the prey as an ellipse with alpha based on health
 function drawPrey() {
   fill(preyFill, preyHealth);
-  ellipse(preyX, preyY, preyRadius * 2);
+image(preyImage, preyX, preyY, preyRadius * 2);
+preyImage.resize(40,40);
 }
 
 // drawPlayer()
@@ -283,7 +296,8 @@ function drawPrey() {
 // Draw the player as an ellipse with alpha value based on health
 function drawPlayer() {
   fill(playerFill, playerHealth);
-  ellipse(playerX, playerY, playerRadius * 2);
+  image(playerImage, playerX, playerY, playerRadius * 2);
+  playerImage.resize(40,40);
 }
 
 // showGameOver()
@@ -304,17 +318,17 @@ function showGameOver() {
 
 //start state
 function displayStartScreen(){
-
+image(backgroundImage,0,0,width,height);
  textAlign(CENTER, CENTER);
  textStyle(BOLD);
- fill(0);
+ fill(255,105,180);
  textSize(40);
- text("LIFE IS LIKE", width / 2, height / 2 - 80); // Title
+ text("LIFE IS LIKE", 305, 40); // Title
  fill(20);
  textSize(10);
  textStyle(BOLD);
- text("a box of chocolates you always know what you're going to get", width / 2, height / 2); // easy button
+ text("a box of chocolates you always know what you're going to get", 305, 60); // easy button
  textSize(10);
- textStyle(ITALIC);
- text("NEVER KNOW",width / 2, height / 2 + 80);
+ textStyle(ITALIC,BOLD);
+ text("NEVER KNOW",305,525);
 }
