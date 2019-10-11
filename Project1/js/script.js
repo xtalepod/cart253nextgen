@@ -6,14 +6,8 @@
 let state = "START";
 
 //sounds for START PLAY GAMEOVER states
-let startSound;
-let startSoundStarted = false;
 let playSound;
-let playSoundStarted = false;
-let gameOverSound;
-let gameOverSoundStarted = false;
-let powerModeSound;
-let powerModeSoundStarted = false;
+//let powerModeSoundStarted = false;
 
 //background images for START, PLAY, GAMEOVER states
 let backgroundImage; //should change name to backgroundStartImage
@@ -76,8 +70,7 @@ function preload() {
   preyImage = loadImage("assets/images/heart.png");
   backgroundPlayImage = loadImage("assets/images/cloud.png");
   //sounds for different states
-  startSound = loadSound("assets/sounds/start.wav");
-  playSound = loadSound("assets/sounds/play.wav")
+  playSound = loadSound("assets/sounds/start.wav");
 }
 // setup()
 //
@@ -146,11 +139,11 @@ function draw() {
 /// Checking play button
 function mousePressed() {
 
-  //click anywhere to start game
+  //click rectanle to start game and sound
   if (state === "START") {
     if (mouseX > 230 && mouseX < 380 && mouseY > 500 && mouseY < 550) {
       rect(305, 550, 150, 50);
-      startSound.loop();
+      playSound.loop();
       state = "PLAY";
     }
   }
@@ -277,7 +270,7 @@ function movePrey() {
   preyVX = map(noise(tx), 0, 1, -preyMaxSpeed, preyMaxSpeed);
   preyVY = map(noise(ty), 0, 1, -preyMaxSpeed, preyMaxSpeed);
   //include something to ensure that the noise keeps moving
-  tx += 0.01;
+  tx += 0.02;
   ty += 0.01;
 
   // Update prey position based on velocity
@@ -347,6 +340,7 @@ function showGameOver() {
   textSize(20);
   textAlign(CENTER, CENTER);
   fill(0);
+
   // Set up the text to display
   let gameOverText = "YOU CANNOT HAVE YOUR\n CAKE AND EAT IT TOO\n"; // \n means "new line"
   gameOverText = gameOverText + "You ate " + preyEaten + "slices\n";
