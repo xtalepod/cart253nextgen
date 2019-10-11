@@ -9,20 +9,17 @@
 
 let state = "START";
 
-//sounds for START PLAY GAMEOVER states
+//sounds for PLAY and GAMEOVER states
 let playSound;
-//let powerModeSoundStarted = false;
 
-//background images for START, PLAY, GAMEOVER states
-let backgroundImage; //should change name to backgroundStartImage
+//background images for START and PLAY states
+let backgroundImage;
 let backgroundPlayImage;
-let backgroundGameoverImage; //still need to add
-
 
 // Track whether the game is over
 let gameOver = false;
 
-//details regarding the player
+//Details regarding the player
 let playerImage;
 // Player position, size, velocity
 let playerX;
@@ -70,10 +67,10 @@ let preyEaten = 0;
 function preload() {
 
   backgroundImage = loadImage("assets/images/chocolate.jpg");
-  playerImage = loadImage("assets/images/cone.png");
+  playerImage = loadImage("assets/images/tom3.png");
   preyImage = loadImage("assets/images/cake2.png");
   backgroundPlayImage = loadImage("assets/images/cloud.png");
-  //sounds for different states
+  //Sound for play state
   playSound = loadSound("assets/sounds/start.wav");
 }
 // setup()
@@ -143,7 +140,7 @@ function draw() {
 /// Checking play button
 function mousePressed() {
 
-  //click rectanle to start game and sound
+  //click rectangle to start game and sound
   if (state === "START") {
     if (mouseX > 230 && mouseX < 380 && mouseY > 500 && mouseY < 550) {
       rect(305, 550, 150, 50);
@@ -309,7 +306,6 @@ function drawPrey() {
 function drawPlayer() {
   push();
   image(playerImage, playerX, playerY, playerHealth);
-  playerImage.resize(10, 60);
   tint(255, 105, 180, playerHealth);
   image(playerImage, playerX, playerY, playerHealth);
   pop();
