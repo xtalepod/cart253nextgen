@@ -24,7 +24,7 @@ let playerImage;
 // Player position, size, velocity
 let playerX;
 let playerY;
-//larger player radius manages to make it so the players face has to overlap 
+//larger player radius manages to make it so the players face has to overlap
 let playerRadius = 200;
 let playerVX = 0;
 let playerVY = 0;
@@ -37,7 +37,7 @@ let playerSpeed;
 let playerHealth;
 //this variable for whether being shifted or not
 let playerHealthPenalty;
-let playerHealthNormalPenalty = 0.1;
+let playerHealthNormalPenalty = 0.3;
 let playerHealthSprintPenalty = 0.5;
 let playerMaxHealth = 255;
 
@@ -49,7 +49,7 @@ let preyY;
 let preyRadius = 25;
 let preyVX;
 let preyVY;
-let preyMaxSpeed = 4;
+let preyMaxSpeed = 10;
 let ty;
 let tx;
 // Prey health
@@ -298,7 +298,7 @@ function movePrey() {
 // Draw the prey as an ellipse with alpha based on health
 function drawPrey() {
   image(preyImage, preyX, preyY, preyHealth);
-  preyImage.resize(40, 40);
+  preyImage.resize(100, 100);
 }
 
 // drawPlayer()
