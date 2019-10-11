@@ -27,15 +27,15 @@ let playerRadius = 25;
 let playerVX = 0;
 let playerVY = 0;
 //removed player max speed and adding variables for sprint speed
-let playerSprintSpeed = 2;
-let playerNormalSpeed = 1;
+let playerSprintSpeed = 6;
+let playerNormalSpeed = 3;
 let playerSpeed;
 //adding player health variables for normal and sprint mode, removing player max health
 
 let playerHealth;
 //this variable for whether being shifted or not
 let playerHealthPenalty;
-let playerHealthNormalPenalty = 0.05;
+let playerHealthNormalPenalty = 0.1;
 let playerHealthSprintPenalty = 0.5;
 let playerMaxHealth = 255;
 
@@ -67,7 +67,7 @@ function preload() {
 
   backgroundImage = loadImage("assets/images/chocolate.jpg");
   playerImage = loadImage("assets/images/cone.png");
-  preyImage = loadImage("assets/images/heart.png");
+  preyImage = loadImage("assets/images/cake2.png");
   backgroundPlayImage = loadImage("assets/images/cloud.png");
   //sounds for different states
   playSound = loadSound("assets/sounds/start.wav");
@@ -296,7 +296,7 @@ function movePrey() {
 // Draw the prey as an ellipse with alpha based on health
 function drawPrey() {
   image(preyImage, preyX, preyY, preyHealth);
-  preyImage.resize(40, 40);
+  preyImage.resize(80, 200);
 }
 
 // drawPlayer()
@@ -305,7 +305,7 @@ function drawPrey() {
 function drawPlayer() {
   push();
   image(playerImage, playerX, playerY, playerHealth);
-  playerImage.resize(40, 40);
+  playerImage.resize(40, 120);
   tint(255, 105, 180, playerHealth);
   image(playerImage, playerX, playerY, playerHealth);
   pop();
