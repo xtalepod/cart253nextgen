@@ -24,7 +24,8 @@ let playerImage;
 // Player position, size, velocity
 let playerX;
 let playerY;
-let playerRadius = 25;
+//larger player radius manages to make it so the players face has to overlap 
+let playerRadius = 200;
 let playerVX = 0;
 let playerVY = 0;
 //removed player max speed and adding variables for sprint speed
@@ -71,7 +72,7 @@ function preload() {
   preyImage = loadImage("assets/images/cake2.png");
   backgroundPlayImage = loadImage("assets/images/cloud.png");
   //Sound for play state
-  playSound = loadSound("assets/sounds/start.wav");
+  playSound = loadSound("assets/sounds/theme.mp3");
 }
 // setup()
 //
