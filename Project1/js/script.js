@@ -1,10 +1,19 @@
 "use strict";
 
 //******************************************************
-//states START PLAY GAMEOVER
+//states
 
 let state = "START";
-let startButton;
+
+//sounds for START PLAY GAMEOVER states
+let startSound;
+let startSoundStarted = false;
+let playSound;
+let playSoundStarted = false;
+let gameOverSound;
+let gameOverSoundStarted = false;
+let powerModeSound;
+let powerModeSoundStarted = false;
 
 //background images for START, PLAY, GAMEOVER states
 let backgroundImage; //should change name to backgroundStartImage
@@ -62,16 +71,19 @@ let preyEaten = 0;
 //preload
 function preload() {
 
-  backgroundImage =loadImage("assets/images/chocolate.jpg");
+  backgroundImage = loadImage("assets/images/chocolate.jpg");
   playerImage = loadImage("assets/images/cone.png");
   preyImage = loadImage("assets/images/heart.png");
-  backgroundPlayImage =loadImage("assets/images/cloud.png");
+  backgroundPlayImage = loadImage("assets/images/cloud.png");
+  //sounds for different states
+  startSound = loadSound("assets/sounds/start.wav");
+  playSound = loadSound("assets/sounds/play.wav")
 }
 // setup()
 //
 // Sets up the basic elements of the game
 function setup() {
-console.log("Help! I'm not doing anything");
+  console.log("Help! I'm not doing anything");
   createCanvas(600, 600);
   // We're using simple functions to separate code out
   setupPrey();
@@ -108,14 +120,13 @@ function setupPlayer() {
 // When the game is over, shows the game over screen.
 function draw() {
   console.log("Help! I'm stuck inside a program!");
-  image(backgroundPlayImage,0,0);
-  backgroundPlayImage.resize (600,600);
+  image(backgroundPlayImage, 0, 0);
+  backgroundPlayImage.resize(600, 600);
 
-//the game is started
+  //the game is started
   if (state === "START") {
-displayStartScreen();
-}
-    else if (state === "PLAY"){
+    displayStartScreen();
+  } else if (state === "PLAY") {
     handleInput();
 
     movePlayer();
@@ -126,8 +137,7 @@ displayStartScreen();
 
     drawPrey();
     drawPlayer();
-  }
-  else if (state === "GAMEOVER"){
+  } else if (state === "GAMEOVER") {
     showGameOver();
   }
 }
@@ -136,13 +146,14 @@ displayStartScreen();
 /// Checking play button
 function mousePressed() {
 
-//click anywhere to start game
+  //click anywhere to start game
   if (state === "START") {
     if (mouseX > 230 && mouseX < 380 && mouseY > 500 && mouseY < 550) {
-    rect(305,550,150,50);
-     state = "PLAY"
-     }
+      rect(305, 550, 150, 50);
+      startSound.loop();
+      state = "PLAY";
     }
+  }
 }
 
 // handleInput()
@@ -291,43 +302,41 @@ function movePrey() {
 //
 // Draw the prey as an ellipse with alpha based on health
 function drawPrey() {
-image(preyImage, preyX, preyY, preyHealth);
-preyImage.resize(40,40);
+  image(preyImage, preyX, preyY, preyHealth);
+  preyImage.resize(40, 40);
 }
 
 // drawPlayer()
 //
 // Draw the player as an ellipse with alpha value based on health
 function drawPlayer() {
-    push();
+  push();
   image(playerImage, playerX, playerY, playerHealth);
-  playerImage.resize(40,40);
-  tint(255,105,180,playerHealth);
-    image(playerImage, playerX, playerY, playerHealth);
+  playerImage.resize(40, 40);
+  tint(255, 105, 180, playerHealth);
+  image(playerImage, playerX, playerY, playerHealth);
   pop();
 }
 
 //start state
-function displayStartScreen(){
-image(backgroundImage,0,0,width,height);
-
- textAlign(CENTER, CENTER);
- textStyle(BOLD);
- fill(255,105,180);
- textSize(40);
- text("LIFE IS LIKE", 305, 40); // Title
- fill(20);
- textSize(10);
- textStyle(BOLD);
- text("a box of chocolates you always know what you're going to get", 305, 60); // easy button
- textSize(20);
- textStyle(ITALIC,BOLD);
- rectMode(CENTER,CENTER);
- fill(255);
- rect(305,550,150,50);
-fill(0);
- text("NEVER KNOW",305,550);
-
+function displayStartScreen() {
+  image(backgroundImage, 0, 0, width, height);
+  textAlign(CENTER, CENTER);
+  textStyle(BOLD);
+  fill(255, 105, 180);
+  textSize(40);
+  text("LIFE IS LIKE", 305, 40); // Title
+  fill(20);
+  textSize(10);
+  textStyle(BOLD);
+  text("a box of chocolates you always know what you're going to get", 305, 60); // easy button
+  textSize(20);
+  textStyle(ITALIC, BOLD);
+  rectMode(CENTER, CENTER);
+  fill(255);
+  rect(305, 550, 150, 50);
+  fill(0);
+  text("NEVER KNOW", 305, 550);
 }
 
 // display GAMEOVER state
