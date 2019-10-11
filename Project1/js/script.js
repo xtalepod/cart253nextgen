@@ -1,5 +1,9 @@
 "use strict";
 
+//a game about cake
+//by christale
+//a simple game about eating cake or not and what it'll all means
+//to exist
 //******************************************************
 //states
 
@@ -296,7 +300,7 @@ function movePrey() {
 // Draw the prey as an ellipse with alpha based on health
 function drawPrey() {
   image(preyImage, preyX, preyY, preyHealth);
-  preyImage.resize(80, 200);
+  preyImage.resize(40, 40);
 }
 
 // drawPlayer()
@@ -305,7 +309,7 @@ function drawPrey() {
 function drawPlayer() {
   push();
   image(playerImage, playerX, playerY, playerHealth);
-  playerImage.resize(40, 120);
+  playerImage.resize(10, 60);
   tint(255, 105, 180, playerHealth);
   image(playerImage, playerX, playerY, playerHealth);
   pop();
@@ -340,7 +344,6 @@ function showGameOver() {
   textSize(20);
   textAlign(CENTER, CENTER);
   fill(0);
-
   // Set up the text to display
   let gameOverText = "YOU CANNOT HAVE YOUR\n CAKE AND EAT IT TOO\n"; // \n means "new line"
   gameOverText = gameOverText + "You ate " + preyEaten + "slices\n";
